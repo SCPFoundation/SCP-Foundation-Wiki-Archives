@@ -1,0 +1,38 @@
+This is the repo of the current SCP Foundation wiki archives. This is where we keep track on the attempts to catalogue the complete history and works of the SCP Foundation wiki.
+
+As of 2011/10/15, automation of the collection of data has been impossible so we are resorting to manually downloading the data by hand unless someone else can help reverse-engineer the Wikidot API (I am having token7 errors).
+
+There are n phases to the collection of data for each page. There is the initial collection of raw page data, parsing out wanted data elements, first-stage group verification, initial commit to archives and final verification before commital to the master branch. The types of data per page we are aiming to obtain are:
+- Wikidot Page IDs
+- Revision history
+- Discussion comments
+- Sources of all revisions
+- Votes/Rating (preferably voting history when automation is possible)
+- Files
+- File list
+
+and for individual revisions,
+- Source
+- Timestamp of revision
+- Title of revision
+- ID and username of user making the revision
+
+In the first phase of archiving a page, one will collect the raw data of a page through the POST request made by the JavaScript functionality provided by Wikidot.
+
+For example: For the http://www.scp-wiki.net/system%3Alist-all-pages page, we would save
+
+<code>
+{"status":"ok","CURRENT_TIMESTAMP":1318701966,"body":"<h2>Page source for revision no. 4<\/h2>\n<div class=\"page-source\">\n[[module ListPages separate=&quot;@URL&quot; category=&quot;@URL|*&quot; order=&quot;@URL|title&quot; perPage=&quot;@URL|50&quot;]]<br \/>\n%%title_linked%%<br \/>\n[[\/module]]\n<\/div>","jsInclude":[],"cssInclude":[],"callbackIndex":"4"}
+</code>
+
+in the first phase for one of the revisions (note that we still need to get the title of the revision).
+
+In the second phase, we will be parsing out all the wanted data elements and storing them in individual files per revision.
+
+Then, others will verify that the data entered is correct.
+Then, the data will be flagged for final approval into the main branch.
+Then the file is added to the master branch.
+
+A script (preferably a shell-script) will eventually be added so that one could attempt to compile the data into a binary format like a SQL database.
+
+As of this writing, there are over 2000 pages on the SCP wiki. This will be a daunting task.
